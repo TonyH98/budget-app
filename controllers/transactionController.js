@@ -2,20 +2,27 @@ const express = require('express')
 const transaction = express.Router() 
 const transactionArray = require("../models/transaction")
 
+
+const sort = transactionArray.sort((a , b) => {
+    return new Date(a.date) - new Date(b.date)
+})
+
+
+
 transaction.get("/", (req , res) => {
-    res.json(transactionArray)
+    res.json(sort)
 })
 
 
 transaction.post("/", (req ,res) => {
-    transactionArray.push(req.body);
-    res.json(transactionArray[transactionArray.length - 1])
+   sort.push(req.body);
+    res.json(sort[sort.length - 1])
 })
 
 transaction.get("/:index", (req , res) => {
     const {index} = req.params
-    if(transactionArray[index]){
-        res.status(200).json(transactionArray[index])
+    if(sort[index]){
+        res.status(200).json(sort[index])
     }
     else{
         res.status(404).redirect("/")
@@ -23,14 +30,14 @@ transaction.get("/:index", (req , res) => {
 })
 
 transaction.delete("/:index", (req, res) => {
-    const deletedtransaction = transactionArray.splice(req.params.index, 1);
+    const deletedtransaction = sort.splice(req.params.index, 1);
     res.status(200).json(deletedtransaction);
   });
 
 
   transaction.put("/:index", (req, res) => {
-    transactionArray[req.params.index] = req.body;
-    res.status(200).json(transactionArray[req.params.index]);
+    sort[req.params.index] = req.body;
+    res.status(200).json(sort[req.params.index]);
   })
 
 

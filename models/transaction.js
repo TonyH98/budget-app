@@ -4,6 +4,6 @@ module.exports = [
         amount: 50000,
         date: "2022-01-01",
         from: "employer",
-        category: "employer"
+        category: "Income"
     }
 ]
