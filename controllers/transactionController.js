@@ -34,6 +34,11 @@ transaction.delete("/:index", (req, res) => {
     res.status(200).json(deletedtransaction);
   });
 
+  transaction.delete("/", (req, res) => {
+    const deletedtransaction = sort.splice(req.params.index, 1);
+    res.status(200).json(deletedtransaction);
+  });
+
 
   transaction.put("/:index", (req, res) => {
     sort[req.params.index] = req.body;
